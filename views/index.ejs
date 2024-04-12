@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>ChatApp</title>
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+  <div class="main">
+    <div id="toastContainer"></div>
+
+    <input type="checkbox" id="chk" aria-hidden="true">
+
+    <div class="signup">
+      <form id="signupaction" method="post">
+        <label for="chk" aria-hidden="true">Sign up</label>
+        <input type="text" name="txt" placeholder="User name" id="username" required="">
+        <input type="email" name="email" placeholder="Email" id="email" required="">
+        <input type="password" name="pswd" placeholder="Password" id="password" required="">
+        <button>Sign up</button>
+      </form>
+    </div>
+
+    <div class="login">
+      <form id="onLogin">
+        <label for="chk" aria-hidden="true">Login</label>
+        <input type="email" name="email" id="loginemail" placeholder="Email" required="">
+        <input type="password" name="pswd" id="loginpassword" placeholder="Password" required="">
+        <button>Login</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/script.js"></script>
+</body>
+
+</html>
