@@ -7,11 +7,11 @@ exports.auth = async (req, res, next) => {
   try {
   
     const token = req.cookies.jwt;
-    console.log(token)
+    
 
     // Verify the JWT synchronously
     const decoded = await jwt.verify(token, process.env.TOKEN_SECRET);
-
+    req.user = decoded;
     next();
   } catch (error) {
     console.error("JWT verification failed:", error);

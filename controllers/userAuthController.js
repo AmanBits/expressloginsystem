@@ -2,9 +2,9 @@ const User = require("../models/userModel");
 
 const bcrypt = require("bcrypt");
 
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
-exports.getAllUser = async (req, res) => {
+module.exports.getAllUser = async (req, res) => {
   try {
     const users = await User.find();
     res.json(users);
@@ -14,7 +14,7 @@ exports.getAllUser = async (req, res) => {
   }
 };
 
-exports.signup = async (req, res) => {
+module.exports.signup = async (req, res) => {
   try {
     const { username, email, password } = { ...req.body };
     const hashPassword = await bcrypt.hash(password, 10);
@@ -35,39 +35,34 @@ exports.signup = async (req, res) => {
   }
 };
 
-exports.login = async (req, res) => {
+module.exports.login = async (req, res) => {
   try {
+    const { email, password } = { ...req.body };
 
-    const {email,password} = {...req.body};
+    const user = await User.findOne({ email: email });
 
-
-    const user = await User.findOne({email:email});
-
-    if(!user){
+    if (!user) {
       res.json("User not found");
       return;
     }
 
-    const match = await bcrypt.compare(password,user.password);
+    const match = await bcrypt.compare(password, user.password);
 
-    if(!match){
-      res.json({message:"Password not correct",status:false})
+    if (!match) {
+      res.json({ message: "Password not correct", status: false });
       return;
     }
 
-
     // create token
-    const token = jwt.sign({userid:user._id},process.env.TOKEN_SECRET,{expiresIn:'1h'});
+    const token = jwt.sign({ userId: user._id }, process.env.TOKEN_SECRET, {
+      expiresIn: "1h",
+    });
 
     // store token
-    res.cookie('jwt',token,{httpOnly:true,maxAge:360000});
-    
-    res.json({message:"success"});
+    res.cookie("jwt", token, { httpOnly: true, maxAge: 360000 });
 
-    
-
-    
+    res.json({ message: "success" });
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 };
