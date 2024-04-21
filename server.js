@@ -36,7 +36,7 @@ app.get("/", (req, res) => {
 });
 
 // Auth Routes
-// app.use("/auth", userAuthRoutes);
+app.use("/auth", userAuthRoutes);
 
 // Custom Middleware
 app.use(cookieParser());
